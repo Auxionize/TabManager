@@ -7,7 +7,13 @@
     "start": "NODE_ENV=production node dist/server.js",
     "type-check": "tsc"
   },
-  "dependencies": {
+  "peerDependencies": {
+    "@material-ui/core": "^4.10.2",
+    "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.39",
+    "next": "9.5.3"
+  },
+  "devDependencies": {
     "@material-ui/core": "^4.10.2",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.39",
