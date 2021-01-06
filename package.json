@@ -1,0 +1,17 @@
+{
+  "name": "tab-manager",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "NODE_OPTIONS=\"--max-old-space-size=2192\" ts-node --project tsconfig.server.json  server.ts",
+    "build": "NODE_OPTIONS=\"--max-old-space-size=8192\" next build && tsc --project tsconfig.server.json",
+    "start": "NODE_ENV=production node dist/server.js",
+    "type-check": "tsc"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.10.2",
+    "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.39",
+    "next": "9.5.3"
+  },
+  "license": "MIT"
+}
