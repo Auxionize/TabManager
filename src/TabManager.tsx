@@ -7,6 +7,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { TabConfig, TabConfigWithElement } from './TabConfig';
 import { IconType } from './otherTypes';
+import React from 'react';
 
 
 export const DIVIDER = 'DIVIDER';

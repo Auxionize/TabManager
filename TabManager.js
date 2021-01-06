@@ -3,6 +3,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { TreeItem, TreeView } from '@material-ui/lab';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import React from 'react';
 export const DIVIDER = 'DIVIDER';
 const isDivider = (tab) => typeof tab === typeof DIVIDER;
 /**
@@ -18,9 +19,7 @@ export default class TabManager {
         this.iconStore = iconStore;
         this.handleChange = handleChange;
         this.options = options;
-        this.TabList = (currentTabKey, showIcon = true, compact = false) => (<TreeView defaultExpanded={['3']} defaultCollapseIcon={<ArrowDropDownIcon />} defaultExpandIcon={<ArrowRightIcon />} defaultEndIcon={<div style={{ width: 24 }}/>}>
-      {this.tabConfigs.map((tabConfig, idx) => this.tab(tabConfig, idx, currentTabKey, showIcon, compact))}
-    </TreeView>);
+        this.TabList = (currentTabKey, showIcon = true, compact = false) => (React.createElement(TreeView, { defaultExpanded: ['3'], defaultCollapseIcon: React.createElement(ArrowDropDownIcon, null), defaultExpandIcon: React.createElement(ArrowRightIcon, null), defaultEndIcon: React.createElement("div", { style: { width: 24 } }) }, this.tabConfigs.map((tabConfig, idx) => this.tab(tabConfig, idx, currentTabKey, showIcon, compact))));
         this.treeItemClasses = makeStyles(theme => ({
             content: {
                 flexDirection: 'row-reverse',
@@ -34,21 +33,16 @@ export default class TabManager {
         }))();
         this.tab = (tabConfig, nodeId, currentTabKey, showIcon = true, compact = false) => {
             if (isDivider(tabConfig)) {
-                return <Divider variant="middle" component="li" key={nodeId}/>;
+                return React.createElement(Divider, { variant: "middle", component: "li", key: nodeId });
             }
             else {
-                return <TreeItem key={nodeId} style={{ borderLeft: (tabConfig.key === currentTabKey) ? '1px solid red' : 'none', ...tabConfig.tab.style }} label={<ListItem key={nodeId} onClick={() => !tabConfig.items && this.handleChangeInternal(tabConfig)} component="div">
-            {showIcon &&
-                    <ListItemIcon style={{ minWidth: compact ? 30 : 54 }}>
-                {this.getFormatedIcon(tabConfig)}
-              </ListItemIcon>}
-            <ListItemText primary={tabConfig.tab.label}/>
-          </ListItem>} nodeId={String(nodeId)} classes={{
-                    content: this.treeItemClasses.content,
-                    iconContainer: tabConfig.items ? this.treeItemClasses.icon : this.treeItemClasses.noIcon,
-                }}>
-        {tabConfig.items && tabConfig.items.map((i, idx) => this.tab(i, nodeId * 1000 + idx, currentTabKey, showIcon, compact))}
-      </TreeItem>;
+                return React.createElement(TreeItem, { key: nodeId, style: { borderLeft: (tabConfig.key === currentTabKey) ? '1px solid red' : 'none', ...tabConfig.tab.style }, label: React.createElement(ListItem, { key: nodeId, onClick: () => !tabConfig.items && this.handleChangeInternal(tabConfig), component: "div" },
+                        showIcon &&
+                            React.createElement(ListItemIcon, { style: { minWidth: compact ? 30 : 54 } }, this.getFormatedIcon(tabConfig)),
+                        React.createElement(ListItemText, { primary: tabConfig.tab.label })), nodeId: String(nodeId), classes: {
+                        content: this.treeItemClasses.content,
+                        iconContainer: tabConfig.items ? this.treeItemClasses.icon : this.treeItemClasses.noIcon,
+                    } }, tabConfig.items && tabConfig.items.map((i, idx) => this.tab(i, nodeId * 1000 + idx, currentTabKey, showIcon, compact)));
             }
         };
         this.HorizontalTabList = (currentTabKey, showIcon = true, tabProps) => {
@@ -58,18 +52,13 @@ export default class TabManager {
                 },
             }));
             const classes = useStyles();
-            return (<Tabs {...{
+            return (React.createElement(Tabs, Object.assign({}, {
                 orientation: 'horizontal',
                 value: currentTabKey,
                 ...tabProps,
-            }}>
-        {this.getTabs().map((tabConfig) => <Tab key={tabConfig.key} value={tabConfig.key} onClick={() => this.handleChangeInternal(tabConfig)} classes={{ wrapper: classes.wrapper }} label={<>
-                {showIcon && this.getFormatedIcon(tabConfig)}
-                <Typography style={{ textTransform: 'capitalize', marginLeft: tabConfig.tab.icon || showIcon ? 5 : 0 }}>
-                  {tabConfig.tab.label}
-                </Typography>
-              </>}/>)}
-      </Tabs>);
+            }), this.getTabs().map((tabConfig) => React.createElement(Tab, { key: tabConfig.key, value: tabConfig.key, onClick: () => this.handleChangeInternal(tabConfig), classes: { wrapper: classes.wrapper }, label: React.createElement(React.Fragment, null,
+                    showIcon && this.getFormatedIcon(tabConfig),
+                    React.createElement(Typography, { style: { textTransform: 'capitalize', marginLeft: tabConfig.tab.icon || showIcon ? 5 : 0 } }, tabConfig.tab.label)) }))));
         };
         this.getInitialTabKey = (router, defaultTab) => {
             return typeof router.query.tab === 'string'
@@ -106,7 +95,7 @@ export default class TabManager {
     getFormatedIcon(tabConfig) {
         const icon = this.getIcon(tabConfig);
         if (typeof icon === 'string') {
-            return <img style={{ height: 40, margin: 6 }} src={icon}/>;
+            return React.createElement("img", { style: { height: 40, margin: 6 }, src: icon });
         }
         else {
             return icon;
@@ -134,8 +123,8 @@ export default class TabManager {
 TabManager.getElement = (configs, currentTab) => {
     const config = configs.find(tab => tab.key === currentTab);
     if (!config) {
-        return <></>;
+        return React.createElement(React.Fragment, null);
     }
     return config.element;
 };
-//# sourceMappingURL=TabManager.jsx.map
+//# sourceMappingURL=TabManager.js.map
