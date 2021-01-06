@@ -11,8 +11,12 @@ export interface TabConfig<
   items?: Array<TabConfig<TabKey> | TabConfigWithPath<TabKey> | TabConfigWithElement<TabKey>>;
 }
 
-export type TabConfigWithPath<T extends string = string> =
-  TabConfig<T> & { path: string };
+export type TabConfigWithPath<
+  TabKey extends string = string, 
+  IconKey extends string = string
+> = TabConfig<TabKey, IconKey> & { path: string };
 
-export type TabConfigWithElement<T extends string = string> =
-  TabConfig<T> & { element: React.ReactElement };
+export type TabConfigWithElement<
+  TabKey extends string = string, 
+  IconKey extends string = string
+> = TabConfig<TabKey, IconKey> & { element: React.ReactElement };
